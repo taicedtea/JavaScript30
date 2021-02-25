@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+    <div class="dropdown">
+        <button class="dropbtn">Choose your drawing style</button>
+        <div class="dropdown-content">
+          <a id="blend">Blend</a>
+          <a id="xor">XOR</a>
+          <a id="lighter">Lighter</a>
+        </div>
+      </div> 
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+    //get canvas in JS
+    const canvas = document.querySelector('#draw');
+    const ctx = canvas.getContext('2d');
+
+    //set up canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    //set default stroke
+    ctx.strokeStyle = '#BADA55';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 60;
+
+    //set up composite user choice
+    let composite = 'none';
+    const compositeList = document.querySelector(".dropdown-content")
+    for (var i=0; i<compositeList.length; i++) {
+      compositeList.addEventListener("click", function() {
+        console.log("clicked");
+      })
+    };
+ 
+    ctx.globalCompositeOperation = composite;
+
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let hue = 0;
+    let direction = true;
+
+  //main drawing function
+    draw = e => {
+        if(!isDrawing) return;
+        console.log(e);
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+        //start from
+        ctx.moveTo(lastX, lastY);
+        //go to
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        // lastX = e.offsetX;
+        // lastY = e.offsetY;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        hue++;
+        if (hue >= 360) {
+            hue = 0;
+        }
+        // if (ctx.lineWidth >= 200 || ctx.lineWidth <= 1){
+        //     direction = !direction;
+        // }
+        // if(direction) {
+        //     ctx.lineWidth++;
+        // } else{
+        //     ctx.lineWidth--;
+        // }        
+    }
+
+    canvas.addEventListener('mousedown', (e) => { 
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+   /* Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;} 
+</style>
+
+</body>
+</html>

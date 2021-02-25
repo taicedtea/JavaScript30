@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+  <link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body id="mainContent">
+<h1 id="title">Check the console!</h1>
+<script>
+  const pressed = [];
+  const secretCode = "rocco"
+  const body = document.querySelector("body");
+  let h1 = document.getElementById("title");
+
+  let textSwitch = () => {
+    if (h1.innerHTML === "Check the console!" || h1.innerHTML === "Go back!") {
+        h1.innerHTML = "Rocco is the best!";
+        console.log("yayy!")
+      } else {
+        h1.innerHTML = "Go back!";
+        console.log("awww")
+      }
+  }
+
+  let darkBackground = () => {
+    body.classList.toggle("backgroundColor");
+  }
+
+  let rainbowText = () => {
+    h1.classList.toggle("rainbow");
+  }
+
+  console.log("Type rocco");
+  window.addEventListener("keyup", (e) => {
+    pressed.push(e.key); //gets user key inputs
+    pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length); //limits length of pressed array
+
+    if (pressed.join('').includes(secretCode)) {
+      rainbowText();
+      darkBackground();
+      textSwitch();
+    }
+  });
+
+</script>
+</body>
+</html>
