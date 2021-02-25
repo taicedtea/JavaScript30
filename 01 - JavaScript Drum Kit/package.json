@@ -1,0 +1,19 @@
+{
+  "name": "jsdrumkit",
+  "version": "1.0.0",
+  "description": "Small js drumkit",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taicedtea/JavaScriptDrumKit.git"
+  },
+  "author": "Tai Disla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taicedtea/JavaScriptDrumKit/issues"
+  },
+  "homepage": "https://github.com/taicedtea/JavaScriptDrumKit#readme"
+}
